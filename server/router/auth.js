@@ -1,9 +1,13 @@
-const jwt = require("jsonwebtoken");
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const authenticate = require("../middleware/authenticate");
+const cookieParser = require("cookie-parser");
 
-require("../db/connection");
+router.use(cookieParser());
+
+require("../db/connection"); 
 const User = require("../model/userSchema");
 
 router.get("/", (req, res) => {
@@ -65,7 +69,14 @@ router.post("/register", async (req, res) => {
     } else if (password != cpassword) {
       return res.status(422).json({ error: "Passwords are not matching" });
     } else {
-      const user = new User({ username, email, phone, work, password, cpassword });
+      const user = new User({
+        username,
+        email,
+        phone,
+        work,
+        password,
+        cpassword,
+      });
       // middleware from userSchema
       await user.save();
 
@@ -116,6 +127,13 @@ router.post("/signin", async (req, res) => {
   } catch (err) {
     console.log(err);
   }
+});
+
+// about us page
+
+router.get("/about", authenticate, (req, res) => {
+  console.log("Hi About from the server.");
+  res.send(req.rootUser);
 });
 
 module.exports = router;

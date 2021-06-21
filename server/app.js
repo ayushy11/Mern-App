@@ -2,6 +2,7 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
+const cookieParser = require("cookie-parser");
 
 dotenv.config({ path: "./config.env" });
 
@@ -17,19 +18,21 @@ const PORT = process.env.PORT;
 
 // Middleware
 
-const middleware = (req, res, next) => {
-  console.log(`Hello Middleware`);
-  next();
-};
+app.use(cookieParser());
+
+// const middleware = (req, res, next) => {
+//   console.log(`Hello Middleware`);
+//   next();
+// };
 
 // app.get("/", (req, res) => {
 //   res.send(`Hello there from server`);
 // });
 
-app.get("/about", middleware, (req, res) => {
-  console.log(`Hello About`);
-  res.send(`Hello About from server`);
-});
+// app.get("/about", middleware, (req, res) => {
+//   console.log(`Hello About`);
+//   res.send(`Hello About from server`);
+// });
 
 app.get("/contact", (req, res) => {
   res.send(`Hello Contact`);

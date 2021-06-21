@@ -1,12 +1,49 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 
 function About() {
+  const history = useHistory();
+  const [userData, setUserData] = useState();
+
+  const callAboutPage = async () => {
+    try {
+      const res = await fetch("/about", {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
+
+      const data = await res.json();
+      console.log(data);
+      setUserData(data);
+
+      if (!res.status === 200 || !data) {
+        const error = new Error(res.error);
+        throw error;
+      }
+    } catch (err) {
+      console.log(err);
+      history.push("/login");
+    }
+  };
+
+  useEffect(() => {
+    callAboutPage();
+  }, []);
+
   return (
     <div>
       <h2>About Me</h2>
       <div id="myCarousel" className="carousel slide" data-ride="carousel">
         <ol className="carousel-indicators">
-          <li data-target="#myCarousel" data-slide-to="0" className="active"></li>
+          <li
+            data-target="#myCarousel"
+            data-slide-to="0"
+            className="active"
+          ></li>
           <li data-target="#myCarousel" data-slide-to="1"></li>
           <li data-target="#myCarousel" data-slide-to="2"></li>
         </ol>
@@ -18,7 +55,9 @@ function About() {
             </div>
             <p className="testimonial">content</p>
             <p className="overview">
-              <b>name</b>job <a href="#">place</a>
+              <b>{userData?.username}</b>
+              {userData?.work}
+              <a href="#">place</a>
             </p>
           </div>
           <div className="carousel-item">
@@ -27,7 +66,9 @@ function About() {
             </div>
             <p className="testimonial">content</p>
             <p className="overview">
-              <b>name</b>job <a href="#">place</a>
+              <b>{userData?.username}</b>
+              {userData?.work}
+              <a href="#">place</a>
             </p>
           </div>
           <div className="carousel-item">
@@ -36,15 +77,25 @@ function About() {
             </div>
             <p className="testimonial">content</p>
             <p className="overview">
-              <b>name</b>job <a href="#">place</a>
+              <b>{userData?.username}</b>
+              {userData?.work}
+              <a href="#">place</a>
             </p>
           </div>
         </div>
 
-        <a className="carousel-control-prev" href="#myCarousel" data-slide="prev">
+        <a
+          className="carousel-control-prev"
+          href="#myCarousel"
+          data-slide="prev"
+        >
           <i className="fa fa-angle-left"></i>
         </a>
-        <a className="carousel-control-next" href="#myCarousel" data-slide="next">
+        <a
+          className="carousel-control-next"
+          href="#myCarousel"
+          data-slide="next"
+        >
           <i className="fa fa-angle-right"></i>
         </a>
       </div>
