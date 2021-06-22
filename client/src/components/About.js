@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import img from '../images/img.jpg';
+import aboutImg from '../images/logo512.png';
 
 function About() {
   const history = useHistory();
-  const [userData, setUserData] = useState();
+  const [userData, setUserData] = useState({});
 
   const callAboutPage = async () => {
     try {
@@ -51,7 +53,7 @@ function About() {
         <div className="carousel-inner">
           <div className="carousel-item active">
             <div className="img-box">
-              <img src="" alt="" />
+              <img src={userData?.username === "AYUSH" || "Ayush Yadav"? img : aboutImg } alt="img" />
             </div>
             <p className="testimonial">content</p>
             <p className="overview">
@@ -60,7 +62,7 @@ function About() {
               <a href="#">place</a>
             </p>
           </div>
-          <div className="carousel-item">
+          {/* <div className="carousel-item">
             <div className="img-box">
               <img src="" alt="" />
             </div>
@@ -70,8 +72,8 @@ function About() {
               {userData?.work}
               <a href="#">place</a>
             </p>
-          </div>
-          <div className="carousel-item">
+          </div> */}
+          {/* <div className="carousel-item">
             <div className="img-box">
               <img src="" alt="" />
             </div>
@@ -81,10 +83,10 @@ function About() {
               {userData?.work}
               <a href="#">place</a>
             </p>
-          </div>
+          </div> */}
         </div>
 
-        <a
+        {/* <a
           className="carousel-control-prev"
           href="#myCarousel"
           data-slide="prev"
@@ -97,7 +99,7 @@ function About() {
           data-slide="next"
         >
           <i className="fa fa-angle-right"></i>
-        </a>
+        </a> */}
       </div>
     </div>
   );

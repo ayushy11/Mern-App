@@ -14,7 +14,7 @@ function Navbar() {
           alt="logo"
         /> */}
         <NavLink className="navbar-brand" to="#">
-          Blog
+          MERN
         </NavLink>
         <button
           className="navbar-toggler"

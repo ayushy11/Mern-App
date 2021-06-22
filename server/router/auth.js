@@ -7,7 +7,7 @@ const cookieParser = require("cookie-parser");
 
 router.use(cookieParser());
 
-require("../db/connection"); 
+require("../db/connection");
 const User = require("../model/userSchema");
 
 router.get("/", (req, res) => {
@@ -134,6 +134,43 @@ router.post("/signin", async (req, res) => {
 router.get("/about", authenticate, (req, res) => {
   console.log("Hi About from the server.");
   res.send(req.rootUser);
+});
+
+// get data for Contact and Home page
+
+router.get("/getdata", authenticate, (req, res) => {
+  console.log("Hi from the server.");
+  res.send(req.rootUser);
+});
+
+// contact us page
+
+router.post("/contact", authenticate, async (req, res) => {
+  try {
+    const { username, email, phone, message } = req.body;
+
+    if (!username || !email || !phone || !message) {
+      console.log("Error in contact form");
+      return res.json({ error: "PLease fill the Contact form." });
+    }
+
+    const userContact = await User.findOne({ _id: req.userId });
+
+    if (userContact) {
+      const userMessage = await userContact.addMessage(
+        username,
+        email,
+        phone,
+        message
+      );
+
+      await userContact.save();
+
+      res.status(201).json({ message: "user contact successful." });
+    }
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 module.exports = router;

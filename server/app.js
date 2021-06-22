@@ -34,9 +34,9 @@ app.use(cookieParser());
 //   res.send(`Hello About from server`);
 // });
 
-app.get("/contact", (req, res) => {
-  res.send(`Hello Contact`);
-});
+// app.get("/contact", (req, res) => {
+//   res.send(`Hello Contact`);
+// });
 
 app.get("/signin", (req, res) => {
   res.send(`Hello Login`);
