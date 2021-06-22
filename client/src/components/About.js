@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import img from '../images/img.jpg';
-import aboutImg from '../images/logo512.png';
+import img from "../images/img.jpg";
+import aboutImg from "../images/logo512.png";
 
 function About() {
   const history = useHistory();
@@ -53,53 +53,21 @@ function About() {
         <div className="carousel-inner">
           <div className="carousel-item active">
             <div className="img-box">
-              <img src={userData?.username === "AYUSH" || "Ayush Yadav"? img : aboutImg } alt="img" />
+              <img
+                src={
+                  userData?.username === "AYUSH" || "Ayush Yadav"
+                    ? img
+                    : aboutImg
+                }
+                alt="img"
+              />
             </div>
-            <p className="testimonial">content</p>
+            <p className="testimonial">{userData?.work}</p>
             <p className="overview">
               <b>{userData?.username}</b>
-              {userData?.work}
-              <a href="#">place</a>
             </p>
           </div>
-          {/* <div className="carousel-item">
-            <div className="img-box">
-              <img src="" alt="" />
-            </div>
-            <p className="testimonial">content</p>
-            <p className="overview">
-              <b>{userData?.username}</b>
-              {userData?.work}
-              <a href="#">place</a>
-            </p>
-          </div> */}
-          {/* <div className="carousel-item">
-            <div className="img-box">
-              <img src="" alt="" />
-            </div>
-            <p className="testimonial">content</p>
-            <p className="overview">
-              <b>{userData?.username}</b>
-              {userData?.work}
-              <a href="#">place</a>
-            </p>
-          </div> */}
         </div>
-
-        {/* <a
-          className="carousel-control-prev"
-          href="#myCarousel"
-          data-slide="prev"
-        >
-          <i className="fa fa-angle-left"></i>
-        </a>
-        <a
-          className="carousel-control-next"
-          href="#myCarousel"
-          data-slide="next"
-        >
-          <i className="fa fa-angle-right"></i>
-        </a> */}
       </div>
     </div>
   );
